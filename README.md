@@ -6,7 +6,7 @@ Este aplicação foi desenvolvida utilizando Spring Boot com Java 8. A aplicaç�
 Por quê? Esse aplicativo é implantado em um Embedded Tomcat.
 
 #Base de dados.
-Para acessar a base de dados, basta acessar a URL http://localhost:8080/h2/
+Para acessar a base de dados, basta acessar a URL http://localhost:9090/h2/
 
 #Imagem docker.
 Para criar a imagem docker, basta acessar a raiz do projeto e executar o comamndo abaixo.
@@ -20,14 +20,14 @@ Para rodar a imagem no docker, basta executar o comando a baixo.
 
 #URL's REST API
 
-** @POST Para salvar um cartão, penas realize uma request para a url abaixo. http://localhost:8080/api/cartoes 
+** @POST Para salvar um cartão, penas realize uma request para a url abaixo. http://localhost:9090/api/cartoes 
 
-** @GET Para consultar um cartão, apenas realize uma request para a url a abaixo. passando o id do cartão: http://localhost:8080/api/cartoes/1
+** @GET Para consultar um cartão, apenas realize uma request para a url a abaixo. passando o id do cartão: http://localhost:9090/api/cartoes/1
 
-** @GET Para listar os cartões, apenas realize uma request para a url abaixo. http://localhost:8080/api/cartoes
+** @GET Para listar os cartões, apenas realize uma request para a url abaixo. http://localhost:9090/api/cartoes
 
 ** @PUT Para atualizar um cartão, apenas realize uma request para a url abaixo passando o body abaixo.
-http://localhost:8080/api/cartoes 
+http://localhost:9090/api/cartoes 
 
 {
 	"nome": "Thiago Correa",
@@ -37,10 +37,10 @@ http://localhost:8080/api/cartoes
     "dataExpiracao": "21-09-2020"
 }
 
-** @PATCH Para atualizar o status de um cartão, apenas realize uma request para a url http://localhost:8080/api/cartoes passando o body abaixo.
+** @PATCH Para atualizar o status de um cartão, apenas realize uma request para a url http://localhost:9090/api/cartoes passando o body abaixo.
 
 {
 	"status": "PERDA"
 }
 
-** @DELETE Para deletar um cartão, apenas realize uma request para a url a seguir passando o id do cartão: http://localhost:8080/api/cartoes/1
+** @DELETE Para deletar um cartão, apenas realize uma request para a url a seguir passando o id do cartão: http://localhost:9090/api/cartoes/1
