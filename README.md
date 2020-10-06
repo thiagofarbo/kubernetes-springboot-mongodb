@@ -11,12 +11,12 @@ Para acessar a base de dados, basta acessar a URL http://localhost:8080/h2/
 #Imagem docker.
 Para criar a imagem docker, basta acessar a raiz do projeto e executar o comamndo abaixo.
 
-**docker build -f Dockerfile -t api-alelo-cartoes .**
+**docker build -f Dockerfile -t api-cartoes .**
 
 
 #Rodar a aplicação no docker
 Para rodar a imagem no docker, basta executar o comando a baixo.
-**docker run -p 8085:8085 api-alelo-cartoes**
+**docker run -p 8085:8085 api-cartoes**
 
 #URL's REST API
 
