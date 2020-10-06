@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-cartoes-deployment
+spec:
+  selector:
+    matchLabels:
+      app: api-cartoes
+  template:
+    metadata:
+      labels:
+        app: api-cartoes
+    spec:
+      containers:
+        - name: api-cartoes
+          image: thiago1432/api-cartoes:v1.0.2
+          ports:
+          - containerPort: 80
+            name: http
+          - containerPort: 443
+            name: https
+          imagePullPolicy: Always
+          envFrom:
+            - configMapRef:
+                name: api-configmap
+          env:
+          - name: MONGO_USERNAME
+            valueFrom:
+                configMapKeyRef:
+                  key: MONGO_INITDB_ROOT_USERNAME
+                  name: mongodb-configmap
+          - name: MONGO_PASSWORD
+            valueFrom:
+                configMapKeyRef:
+                  key: MONGO_INITDB_ROOT_PASSWORD
+                  name: mongodb-configmap
+          - name: MONGO_DB
+            valueFrom:
+                configMapKeyRef:
+                  key: MONGO_DATABASE
+                  name: api-configmap
+          - name: MONGO_HOST
+            valueFrom:
+                configMapKeyRef:
+                  key: MONGO_HOST
+                  name: api-configmap
