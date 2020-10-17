@@ -7,7 +7,7 @@ spec:
     app: api-cartoes
   ports:
     - protocol: TCP
-      port: 80
-      targetPort: 9595
+      port: 9595
+#      targetPort: 9595
       nodePort: 31777
   type: NodePort

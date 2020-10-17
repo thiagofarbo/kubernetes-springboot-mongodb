@@ -24,23 +24,24 @@ spec:
             - configMapRef:
                 name: api-configmap
           env:
-          - name: MONGO_USERNAME
+          - name: MONGO_DATABASE
             valueFrom:
-                configMapKeyRef:
-                  key: MONGO_INITDB_ROOT_USERNAME
-                  name: mongodb-configmap
-          - name: MONGO_PASSWORD
-            valueFrom:
-                configMapKeyRef:
-                  key: MONGO_INITDB_ROOT_PASSWORD
-                  name: mongodb-configmap
-          - name: MONGO_DB
-            valueFrom:
-                configMapKeyRef:
-                  key: MONGO_DATABASE
-                  name: api-configmap
+              configMapKeyRef:
+                name: api-configmap
+                key: MONGO_DATABASE
           - name: MONGO_HOST
             valueFrom:
-                configMapKeyRef:
-                  key: MONGO_HOST
-                  name: api-configmap
+              configMapKeyRef:
+                name: api-configmap
+                key: MONGO_HOST
+          - name: MONGO_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_ROOT_USERNAME
+          - name: MONGO_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_ROOT_PASSWORD
+                

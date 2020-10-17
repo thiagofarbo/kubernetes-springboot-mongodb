@@ -13,7 +13,7 @@ spec:
     metadata:
       labels:
         app: mongodb
-      name: mongo-service
+      name: mongodb
     spec:
       containers:
         - name: mongodb
@@ -21,14 +21,17 @@ spec:
           ports: 
           - containerPort: 27017
             name: mongodb
-        # env:
-        # - name: MONGO_INITDB_ROOT_USERNAME
-        #   value: mongouser
-        # - name: MONGO_INITDB_ROOT_PASSWORD
-        #   value: mongopwd
-          envFrom:
-            - configMapRef:
-                name: mongodb-configmap
+          env:
+          - name: MONGO_INITDB_ROOT_USERNAME
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_ROOT_USERNAME 
+          - name: MONGO_INITDB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mongodb-secret
+                key: MONGO_ROOT_PASSWORD
           volumeMounts:
           - name: mongo-volume
             mountPath: /data/db
