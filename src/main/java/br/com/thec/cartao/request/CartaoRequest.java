@@ -33,10 +33,7 @@ import lombok.Setter;
 public class CartaoRequest implements Serializable{
 
 	private static final long serialVersionUID = 4641788372072003805L;
-	
-	@ApiModelProperty(value = "Id Cartão", notes = "Id do Status do cartão", required = true, example = "12", position = 1)
-	private String id;
-	
+
 	@ApiModelProperty(value = "Nome do portador do cartao", notes = "Nome do portador do cartao", required = true, example = "João Pereira", position = 2)
 	private String nome;
 	
