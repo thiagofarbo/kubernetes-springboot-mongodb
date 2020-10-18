@@ -30,7 +30,7 @@ Para rodar a imagem no docker, basta executar o comando a baixo.
 http://localhost:9090/api/cartoes 
 
 {
-	"nome": "Thiago Correa",
+	"nome": "Joh Conner",
     "valor": 300.00,
     "tipoProduto": "CULTURA",
     "dataRecarga": "16-10-2019",

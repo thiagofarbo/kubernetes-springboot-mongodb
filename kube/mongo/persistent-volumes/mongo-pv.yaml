@@ -5,9 +5,11 @@ metadata:
   labels:
     type: local
 spec:
-  capacity:
-    storage: 1Gi
+  storageClassName: manual
+  capacity: 
+    storage: 2Gi
   accessModes:
   - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
   hostPath:
-    path: /data/db
+    path: "/volumes/mongodb"

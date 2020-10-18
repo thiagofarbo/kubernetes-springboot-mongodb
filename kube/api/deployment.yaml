@@ -20,6 +20,23 @@ spec:
           - containerPort: 443
             name: https
           imagePullPolicy: Always
+#          readinessProbe: 
+#            httpGet:
+#                path: /actuator/health
+#                port: 9595
+#                scheme: HTTP
+#            timeoutSeconds: 1
+#            failureThreshold: 5
+#            periodSecond: 5
+#            successThredshold: 2
+#          livinessProbe: 
+#             httpGet:
+#                 path: /actuator/health
+#                 port: 9595
+#                 scheme: HTTP
+#             timeoutSeconds: 1
+#             failureThreshold: 5
+#             periodSecond: 5
           envFrom:
             - configMapRef:
                 name: api-configmap

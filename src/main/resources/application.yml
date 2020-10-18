@@ -3,10 +3,10 @@ spring:
     name: api-cartoes
   data:
     mongodb:
-      uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongodb/${MONGO_DATABASE}
-#     host: localhost
-#     port: 27017
-#     database: cartao
+#      uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongodb/${MONGO_DATABASE}
+     host: localhost
+     port: 27017
+     database: cartao
 
 logging:
   pattern:
