@@ -40,7 +40,7 @@ public class CartaoRequest implements Serializable{
 	@ApiModelProperty(value = "Valor que está no cartão", notes = "Valor que está no cartão", required = true, example = "200.00", position = 3)
 	private BigDecimal valor;
 	
-	@ApiModelProperty(value = "tipo do produto", notes = "tipo do produto", required = true, example = "Refeição", position = 4)
+	@ApiModelProperty(value = "tipo do produto", notes = "tipo do produto", required = true, example = "REFEICAO", position = 4)
 	private TipoProduto tipoProduto;
 	
 	@ApiModelProperty(value = "Recarga para o cartão", notes = "Data de recarga para o catão", required = true, example = "30/09/2019", position = 5)
