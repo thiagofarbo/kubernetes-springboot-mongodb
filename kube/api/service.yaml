@@ -8,6 +8,6 @@ spec:
   ports:
     - protocol: TCP
       port: 9595
-#      targetPort: 9595
-      nodePort: 31777
-  type: NodePort
+      targetPort: 9595
+#      nodePort: 31777
+  type: ClusterIP

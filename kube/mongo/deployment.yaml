@@ -38,5 +38,5 @@ spec:
       volumes:
         - name: mongo-volume
           persistentVolumeClaim:
-            claimName: mongo-pvc
+            claimName: mongo-pvc2
 

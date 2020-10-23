@@ -1,0 +1,16 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: ingress-api-cartoes
+  annotations:
+    kubernetes.io/ingress.allow-http: "true"
+spec:
+  tls:
+  - secretName: certificate-tls-secret
+  rules:
+    - host: thec.com.br
+      http:
+        paths:
+        - backend:
+            serviceName: api-cartoes-service
+            servicePort: 9595
