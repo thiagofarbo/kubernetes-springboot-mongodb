@@ -1,12 +1,11 @@
 package br.com.thec.cartao.service;
 
 import static br.com.thec.cartao.exception.ExceptionCartoes.checkThrow;
+import static br.com.thec.cartao.exception.ExceptionsMessagesCartoesEnum.ERROR_TO_UPDATE_CARD;
 import static br.com.thec.cartao.exception.ExceptionsMessagesCartoesEnum.GLOBAL_BAD_REQUEST;
 import static br.com.thec.cartao.exception.ExceptionsMessagesCartoesEnum.GLOBAL_NO_CONTENT;
 import static br.com.thec.cartao.exception.ExceptionsMessagesCartoesEnum.GLOBAL_RESOURCE_NOT_FOUND;
-import static br.com.thec.cartao.exception.ExceptionsMessagesCartoesEnum.ERROR_TO_UPDATE_CARD;
 
-import java.time.LocalDate;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import br.com.thec.cartao.context.CartaoStrategy;
 import br.com.thec.cartao.domain.Cartao;
 import br.com.thec.cartao.enums.StatusCartaoEnum;
 import br.com.thec.cartao.mapper.Mapper;
@@ -33,15 +33,16 @@ public class CartaoService {
 	
 	@Autowired
 	private CartaoRepository cartaoRepository;
+	
 
 	@Transactional
-	public CartaoResponse salvarCartao(final CartaoRequest cartaoRequest) {
+	public CartaoResponse criarCartao(final CartaoRequest cartaoRequest) {
 		
-		cartaoRequest.setDataRecarga(LocalDate.now().plusDays(25));
-		cartaoRequest.setDataExpiracao(LocalDate.now().plusDays(365));
-		cartaoRequest.setStatus(StatusCartaoEnum.INATIVO);
+		CartaoStrategy cartaoStrategy = cartaoRequest.getTipoCartao().criarCartao();
 		
-		final Cartao cartao = this.cartaoRepository.save(mapper.mapToCartao(cartaoRequest));
+		CartaoResponse cartaoResponse = cartaoStrategy.criarCartao(cartaoRequest);
+		
+		final Cartao cartao = this.cartaoRepository.save(mapper.mapToCartao(cartaoResponse));
 		
 		return mapper.mapToModelResponse(cartao);
 		
@@ -78,7 +79,6 @@ public class CartaoService {
 
 		return CartaoResponse.builder()
 				.nome(cartao.getNome())
-				.valor(cartao.getValor())
 				.dataRecarga(cartao.getDataRecarga())
 				.dataExpiracao(cartao.getDataExpiracao())
 				.tipoProduto(cartao.getTipoProduto()).build();

@@ -15,25 +15,25 @@ import org.springframework.web.client.RestTemplate;
 
 import br.com.thec.cartao.domain.Usuario;
 
-//@RunWith(SpringRunner.class)
-//@SpringBootTest
+@RunWith(SpringRunner.class)
+@SpringBootTest
 public class UsuarioRestTemplateTest {
 	
-//	@Mock
-//    private RestTemplate restTemplate;
-// 
-//    @InjectMocks
-//    private Usuario usuario = new Usuario();
-// 
-//    @Test
-//    public void usuarioMocking() {
-//       
-//    	Usuario user = new Usuario(1L, 2L, "delectus aut autem", Boolean.TRUE);
-//        Mockito.when(restTemplate.getForEntity("https://jsonplaceholder.typicode.com/todos/1", Usuario.class))
-//       .thenReturn(new ResponseEntity<Usuario>(user, HttpStatus.OK));   
-//          
-//        Usuario u = this.usuario.getUsuario();
-//    	
-//        assertEquals(user, u);
-//    }
+	@Mock
+    private RestTemplate restTemplate;
+ 
+    @InjectMocks
+    private Usuario usuario = new Usuario();
+ 
+    @Test
+    public void usuarioMocking() {
+       
+    	Usuario user = new Usuario(1L, 2L, "delectus aut autem", Boolean.TRUE);
+        Mockito.when(restTemplate.getForEntity("https://jsonplaceholder.typicode.com/todos/1", Usuario.class))
+       .thenReturn(new ResponseEntity<Usuario>(user, HttpStatus.OK));   
+          
+        Usuario u = this.usuario.getUsuario();
+    	
+        assertEquals(user, u);
+    }
 }

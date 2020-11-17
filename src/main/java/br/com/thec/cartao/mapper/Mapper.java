@@ -23,6 +23,13 @@ public class Mapper {
 		return modelMapper.map(cartao, Cartao.class);
 	}
 	
+	public Cartao mapToCartao(final CartaoResponse cartaoResponse) {
+		
+		ModelMapper modelMapper = new ModelMapper();
+		return modelMapper.map(cartaoResponse, Cartao.class);
+	}
+	
+	
 	public CartaoResponse mapToModelResponse(final Cartao cartao) {
 		
 		ModelMapper modelMapper = new ModelMapper();

@@ -14,6 +14,7 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 import br.com.thec.cartao.enums.StatusCartaoEnum;
+import br.com.thec.cartao.enums.TipoCartao;
 import br.com.thec.cartao.enums.TipoProduto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -51,4 +52,8 @@ public class Cartao implements Serializable {
 	private LocalDate dataExpiracao;	
 
 	private StatusCartaoEnum status;
+	
+	private BigDecimal limiteCartao;
+	
+	private TipoCartao tipoCartao;
 }

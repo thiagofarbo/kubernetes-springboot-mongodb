@@ -12,6 +12,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.UUID;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -27,7 +28,9 @@ import br.com.thec.cartao.domain.Cartao;
 import br.com.thec.cartao.domain.exception.BadRequestCustom;
 import br.com.thec.cartao.domain.exception.NoContentCustom;
 import br.com.thec.cartao.domain.exception.NotFoundCustom;
+import br.com.thec.cartao.enums.BandeiraEnum;
 import br.com.thec.cartao.enums.StatusCartaoEnum;
+import br.com.thec.cartao.enums.TipoCartao;
 import br.com.thec.cartao.enums.TipoProduto;
 import br.com.thec.cartao.mapper.Mapper;
 import br.com.thec.cartao.repository.CartaoRepository;
@@ -59,11 +62,11 @@ public class CartaoServiceTest {
 			
 			when(cartaoRepository.save(any(Cartao.class))).thenReturn(builderCartao());
 			
-			when(mapper.mapToCartao(any(CartaoRequest.class))).thenReturn(builderCartao());
+			when(mapper.mapToCartao(any(CartaoResponse.class))).thenReturn(builderCartao());
 			
 			when(mapper.mapToModelResponse(any(Cartao.class))).thenReturn(builderCartaoResponse());
 			
-			CartaoResponse cartao = cartaoService.salvarCartao(cartaoRequest);
+			CartaoResponse cartao = cartaoService.criarCartao(cartaoRequest);
 			
 			assertNotNull(cartao);
 	}
@@ -198,10 +201,12 @@ public class CartaoServiceTest {
 	private Cartao builderCartao() {
 		
 		return Cartao.builder()
-		.nome("O'Connel2")		
-		.tipoProduto(TipoProduto.REFEICAO)
+		.id(UUID.randomUUID().toString())
+		.nome("O'Connel2")
 		.dataRecarga(LocalDate.now().plusDays(25))	
 		.dataExpiracao(LocalDate.now().plusDays(365))
+		.limiteCartao(BigDecimal.TEN)
+		.tipoCartao(TipoCartao.CREDITO)
 		.status(StatusCartaoEnum.INATIVO).build();
 	}
 	
@@ -220,21 +225,21 @@ public class CartaoServiceTest {
 		
 		return CartaoRequest.builder()
 			.nome("O'Connel")
-			.valor(new BigDecimal(100))
-			.tipoProduto(TipoProduto.ALIMENTACAO)
-			.status(StatusCartaoEnum.INATIVO)
-			.dataExpiracao(LocalDate.now().plusDays(365))
-			.dataRecarga(LocalDate.now().plusDays(25)).build();
+			.tipoCartao(TipoCartao.CREDITO)
+			.build();
 	}
 	
 	private CartaoResponse builderCartaoResponse() {
 		
 		return CartaoResponse.builder()
 			.nome("O'Connel")
-			.valor(new BigDecimal(100))
-			.tipoProduto(TipoProduto.ALIMENTACAO)
-			.status(StatusCartaoEnum.INATIVO)
+			.bandeira(BandeiraEnum.VISA)
 			.dataExpiracao(LocalDate.now().plusDays(365))
-			.dataRecarga(LocalDate.now().plusDays(25)).build();
+			.dataRecarga(LocalDate.now().plusDays(25))
+			.status(StatusCartaoEnum.INATIVO)
+			.limiteCartao(BigDecimal.valueOf(1500.00))
+			.tipoCartao(TipoCartao.CREDITO)
+			.build();
+		
 	}
 }

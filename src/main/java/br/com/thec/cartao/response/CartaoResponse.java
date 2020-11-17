@@ -12,7 +12,9 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
+import br.com.thec.cartao.enums.BandeiraEnum;
 import br.com.thec.cartao.enums.StatusCartaoEnum;
+import br.com.thec.cartao.enums.TipoCartao;
 import br.com.thec.cartao.enums.TipoProduto;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -38,10 +40,8 @@ public class CartaoResponse  implements Serializable{
 		@ApiModelProperty(value = "Nome do portador do cartao", notes = "Nome do portador do cartao", required = true, example = "João Pereira", position = 2)
 		private String nome;
 		
-		@ApiModelProperty(value = "Valor que está no cartão", notes = "Valor que está no cartão", required = true, example = "200.00", position = 3)
-		private BigDecimal valor;
 		
-		@ApiModelProperty(value = "tipo do produto", notes = "tipo do produto", required = true, example = "Refeição", position = 4)
+		@ApiModelProperty(value = "tipo do produto", notes = "tipo do produto", required = true, example = "REFEICAO", position = 4)
 		private TipoProduto tipoProduto;
 		
 		@ApiModelProperty(value = "Recarga para o cartão", notes = "Data de recarga para o catão", required = true, example = "30/09/2019", position = 5)
@@ -58,5 +58,20 @@ public class CartaoResponse  implements Serializable{
 		
 		@ApiModelProperty(value = "Status do catão", notes = "Status do catão", required = true, example = "ATIVO", position = 7)
 		private StatusCartaoEnum status;
+		
+		@ApiModelProperty(value = "Limite catão", notes = "Valor de limite do catão", required = true, example = "1500.00", position = 8)
+		private BigDecimal limiteCartao;
+		
+		@ApiModelProperty(value = "Score", notes = "Score usuario", required = true, example = "985", position = 9)
+		private Integer score;
+		
+		@ApiModelProperty(value = "Salario", notes = "Salario do requisitante do cartao", required = true, example = "1500.00", position = 10)
+		private BigDecimal salario;
+		
+		@ApiModelProperty(value = "Bandeira cartao", notes = "Bandeira do cartao", required = true, example = "VISA", position = 11)
+		private BandeiraEnum bandeira;
+		
+		@ApiModelProperty(value = "Descricao tipo catão", notes = "Descricao do tipo do catão", required = true, example = "Crédito", position = 12)
+		private TipoCartao tipoCartao;
 
 }

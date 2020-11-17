@@ -3,7 +3,6 @@ package br.com.thec.cartao.resource;
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_400;
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_404;
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_500;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8_VALUE;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,7 +32,7 @@ import io.swagger.annotations.ApiResponses;
 
 @RestController
 @RequestMapping("/api")
-@Api(value = "/cartões", produces = APPLICATION_JSON_UTF8_VALUE, tags = { "Cartões" })
+@Api(value = "/cartões", produces = "application/json;charset=UTF-8", tags = { "Cartões" })
 @ApiOperation(value = "cartões", notes = "API Cartões", response = CartaoResource.class)
 @ApiResponses({ @ApiResponse(code = 400, message = MENSAGEM_GLOBAL_400, response = ErrorInfo.class),
 		@ApiResponse(code = 404, message = MENSAGEM_GLOBAL_404, response = ErrorInfo.class),
@@ -46,7 +45,7 @@ public class CartaoResource {
 	@ResponseBody
 	@PostMapping("/cartoes")
 	private ResponseEntity<CartaoResponse> salvar(@RequestBody final CartaoRequest cartao){
-		return ResponseEntity.ok(this.cartaoService.salvarCartao(cartao));
+		return ResponseEntity.ok(this.cartaoService.criarCartao(cartao));
 	}
 	
 	@GetMapping("/cartoes/{id}")
