@@ -4,7 +4,10 @@ import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBA
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_404;
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_500;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.thec.cartao.domain.Cartao;
+import br.com.thec.cartao.event.CartaoCriadoEvent;
 import br.com.thec.cartao.exception.ErrorInfo;
 import br.com.thec.cartao.request.CartaoRequest;
 import br.com.thec.cartao.request.CartaoRequestUpdate;
@@ -41,10 +45,16 @@ public class CartaoResource {
 	
 	@Autowired
 	private CartaoService cartaoService;
-
+	
+	@Autowired
+	private ApplicationEventPublisher publisher;
+	
 	@ResponseBody
 	@PostMapping("/cartoes")
-	private ResponseEntity<CartaoResponse> criar(@RequestBody final CartaoRequest cartao){
+	private ResponseEntity<CartaoResponse> criar(@RequestBody final CartaoRequest cartao, HttpServletResponse response){
+		
+		publisher.publishEvent(new CartaoCriadoEvent(cartao, response));
+		
 		return ResponseEntity.ok(this.cartaoService.criarCartao(cartao));
 	}
 	

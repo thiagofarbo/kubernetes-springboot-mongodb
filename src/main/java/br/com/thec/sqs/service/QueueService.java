@@ -10,19 +10,20 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.google.gson.Gson;
 
-import br.com.thec.cartao.request.CartaoRequest;
+import br.com.thec.cartao.event.CartaoCriadoEvent;
 import br.com.thec.sqs.response.MessageResponse;
 
 public class QueueService {
 	
-	public static MessageResponse send(final CartaoRequest cartaoRequest) {
+	public static MessageResponse send(final CartaoCriadoEvent cartaoCriadoEvent) {
 		
 		String queueUrl = loadConfiguration().getQueueUrl("cartao-queue").getQueueUrl();
 		
 		Gson gson = new Gson();
+		String message = gson.toJson(cartaoCriadoEvent.getRecurso());
 		
 		SendMessageRequest request = new SendMessageRequest().withQueueUrl(queueUrl)
-				.withMessageBody(gson.toJson(cartaoRequest))
+				.withMessageBody(gson.toJson(message))
 				.withDelaySeconds(5);
 		
 		SendMessageResult response = loadConfiguration().sendMessage(request);

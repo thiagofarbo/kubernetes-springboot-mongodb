@@ -2,6 +2,7 @@ package br.com.thec.cartao.request;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
@@ -25,13 +26,17 @@ import lombok.Setter;
 public class CartaoRequest implements Serializable {
 
 	private static final long serialVersionUID = 4641788372072003805L;
-
-	@ApiModelProperty(value = "Nome do portador do cartão", notes = "Nome do portador do cartão", required = true, example = "João Pereira", position = 1)
+	
+	@JsonIgnore
+	@ApiModelProperty(value = "Id Cartão", notes = "Id do Status do cartão", required = true, example = "12", position = 1)
+	private String id;
+	
+	@ApiModelProperty(value = "Nome do portador do cartão", notes = "Nome do portador do cartão", required = true, example = "João Pereira", position = 2)
 	private String nome;
 	
 	private TipoCartao tipoCartao;
 	
-	@ApiModelProperty(value = "Numero do cartão", notes = "Numero do cartão", required = true, example = "1234567890123456", position = 2)
+	@ApiModelProperty(value = "Numero do cartão", notes = "Numero do cartão", required = true, example = "1234567890123456", position = 3)
 	private String numeroCartao;
 	
 }

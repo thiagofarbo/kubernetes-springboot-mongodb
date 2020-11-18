@@ -10,7 +10,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Async;
@@ -22,6 +22,7 @@ import br.com.thec.cartao.context.CartaoStrategy;
 import br.com.thec.cartao.domain.Cartao;
 import br.com.thec.cartao.domain.generator.Generator;
 import br.com.thec.cartao.enums.StatusCartaoEnum;
+import br.com.thec.cartao.event.CartaoCriadoEvent;
 import br.com.thec.cartao.mapper.Mapper;
 import br.com.thec.cartao.repository.CartaoRepository;
 import br.com.thec.cartao.request.CartaoRequest;
@@ -41,9 +42,6 @@ public class CartaoService {
 	@Autowired
 	private CartaoRepository cartaoRepository;
 	
-	@Autowired
-	private ApplicationEventPublisher publisher;
-	
 
 	@Transactional
 	public CartaoResponse criarCartao(final CartaoRequest cartaoRequest) {
@@ -57,18 +55,14 @@ public class CartaoService {
 		
 		final Cartao cartao = this.cartaoRepository.save(mapper.mapToCartao(cartaoResponse));
 		
-		
-//		publisher.publishEvent(event);
-		
-		this.sendToQueue(cartaoRequest);
-		
 		return mapper.mapToModelResponse(cartao);
 		
 	}
 	
 	@Async
-	private void sendToQueue(final CartaoRequest cartaoRequest) {
-		QueueService.send(cartaoRequest);
+	@EventListener
+	public void sendToQueue(final CartaoCriadoEvent cartaoCriadoEvent) {
+		QueueService.send(cartaoCriadoEvent);
 	}
 
 	public CartaoResponse consultarCartao(final String id) {
