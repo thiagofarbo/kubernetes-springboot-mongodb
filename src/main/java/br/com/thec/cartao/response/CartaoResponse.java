@@ -40,7 +40,6 @@ public class CartaoResponse  implements Serializable{
 		@ApiModelProperty(value = "Nome do portador do cartao", notes = "Nome do portador do cartao", required = true, example = "João Pereira", position = 2)
 		private String nome;
 		
-		
 		@ApiModelProperty(value = "tipo do produto", notes = "tipo do produto", required = true, example = "REFEICAO", position = 4)
 		private TipoProduto tipoProduto;
 		
@@ -71,7 +70,10 @@ public class CartaoResponse  implements Serializable{
 		@ApiModelProperty(value = "Bandeira cartao", notes = "Bandeira do cartao", required = true, example = "VISA", position = 11)
 		private BandeiraEnum bandeira;
 		
-		@ApiModelProperty(value = "Descricao tipo catão", notes = "Descricao do tipo do catão", required = true, example = "Crédito", position = 12)
+		@ApiModelProperty(value = "Descricao tipo cartão", notes = "Descricao do tipo do cartão", required = true, example = "Crédito", position = 12)
 		private TipoCartao tipoCartao;
+		
+		@ApiModelProperty(value = "Numero do cartão", notes = "Numero do cartão", required = true, example = "1234567890123456", position = 13)
+		private String numeroCartao;
 
 }

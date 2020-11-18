@@ -56,4 +56,6 @@ public class Cartao implements Serializable {
 	private BigDecimal limiteCartao;
 	
 	private TipoCartao tipoCartao;
+
+	private String numeroCartao;
 }

@@ -44,7 +44,7 @@ public class CartaoResource {
 
 	@ResponseBody
 	@PostMapping("/cartoes")
-	private ResponseEntity<CartaoResponse> salvar(@RequestBody final CartaoRequest cartao){
+	private ResponseEntity<CartaoResponse> criar(@RequestBody final CartaoRequest cartao){
 		return ResponseEntity.ok(this.cartaoService.criarCartao(cartao));
 	}
 	

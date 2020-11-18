@@ -22,3 +22,5 @@ management:
       show-details: ALWAYS
 server:
   port: 9595
+  
+queue: cartao-queue  

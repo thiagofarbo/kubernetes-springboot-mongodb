@@ -26,9 +26,12 @@ public class CartaoRequest implements Serializable {
 
 	private static final long serialVersionUID = 4641788372072003805L;
 
-	@ApiModelProperty(value = "Nome do portador do cartão", notes = "Nome do portador do cartão", required = true, example = "João Pereira", position = 2)
+	@ApiModelProperty(value = "Nome do portador do cartão", notes = "Nome do portador do cartão", required = true, example = "João Pereira", position = 1)
 	private String nome;
 	
 	private TipoCartao tipoCartao;
+	
+	@ApiModelProperty(value = "Numero do cartão", notes = "Numero do cartão", required = true, example = "1234567890123456", position = 2)
+	private String numeroCartao;
 	
 }

@@ -10,20 +10,24 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import br.com.thec.cartao.context.CartaoStrategy;
 import br.com.thec.cartao.domain.Cartao;
+import br.com.thec.cartao.domain.generator.Generator;
 import br.com.thec.cartao.enums.StatusCartaoEnum;
 import br.com.thec.cartao.mapper.Mapper;
 import br.com.thec.cartao.repository.CartaoRepository;
 import br.com.thec.cartao.request.CartaoRequest;
 import br.com.thec.cartao.request.CartaoRequestUpdate;
 import br.com.thec.cartao.response.CartaoResponse;
+import br.com.thec.sqs.service.QueueService;
 
 @Service
 public class CartaoService {
@@ -32,7 +36,13 @@ public class CartaoService {
 	private Mapper mapper;
 	
 	@Autowired
+	private Generator generator;
+	
+	@Autowired
 	private CartaoRepository cartaoRepository;
+	
+	@Autowired
+	private ApplicationEventPublisher publisher;
 	
 
 	@Transactional
@@ -40,12 +50,25 @@ public class CartaoService {
 		
 		CartaoStrategy cartaoStrategy = cartaoRequest.getTipoCartao().criarCartao();
 		
-		CartaoResponse cartaoResponse = cartaoStrategy.criarCartao(cartaoRequest);
+		final String numeroCartao = generator.cardGenerator();
+		cartaoRequest.setNumeroCartao(numeroCartao);
+		
+		final CartaoResponse cartaoResponse = cartaoStrategy.criarCartao(cartaoRequest);
 		
 		final Cartao cartao = this.cartaoRepository.save(mapper.mapToCartao(cartaoResponse));
 		
+		
+//		publisher.publishEvent(event);
+		
+		this.sendToQueue(cartaoRequest);
+		
 		return mapper.mapToModelResponse(cartao);
 		
+	}
+	
+	@Async
+	private void sendToQueue(final CartaoRequest cartaoRequest) {
+		QueueService.send(cartaoRequest);
 	}
 
 	public CartaoResponse consultarCartao(final String id) {
