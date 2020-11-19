@@ -22,6 +22,7 @@ public class CartaoCredito implements CartaoStrategy{
 				.status(StatusCartaoEnum.INATIVO)
 				.limiteCartao(BigDecimal.valueOf(1500.00))
 				.tipoCartao(cartao.getTipoCartao())
+				.numeroCartao(cartao.getNumeroCartao())
 				.build();
 		
 	}

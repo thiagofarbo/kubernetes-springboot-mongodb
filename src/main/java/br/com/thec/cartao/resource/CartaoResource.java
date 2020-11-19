@@ -4,9 +4,12 @@ import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBA
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_404;
 import static br.com.thec.cartao.exception.GlobalExceptionHandler.MENSAGEM_GLOBAL_500;
 
+import java.time.format.DateTimeFormatter;
+
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -49,11 +52,19 @@ public class CartaoResource {
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
+	@Value("${queue}")	
+	private String queue;
+	
+	@Value("${dead.letter.queue}")
+	private String deadLetter;
+	
+	static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
+	
 	@ResponseBody
 	@PostMapping("/cartoes")
 	private ResponseEntity<CartaoResponse> criar(@RequestBody final CartaoRequest cartao, HttpServletResponse response){
 		
-		publisher.publishEvent(new CartaoCriadoEvent(cartao, response));
+		publisher.publishEvent(new CartaoCriadoEvent(cartao, response, "cartao-queue"));
 		
 		return ResponseEntity.ok(this.cartaoService.criarCartao(cartao));
 	}

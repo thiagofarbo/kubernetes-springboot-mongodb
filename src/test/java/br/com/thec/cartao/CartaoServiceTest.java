@@ -55,21 +55,21 @@ public class CartaoServiceTest {
 	@InjectMocks
 	private CartaoService cartaoService;
 
-	@Test
-	public void salvarCartaoTest() {
-		
-			CartaoRequest cartaoRequest = this.builderCartaoRequest();
-			
-			when(cartaoRepository.save(any(Cartao.class))).thenReturn(builderCartao());
-			
-			when(mapper.mapToCartao(any(CartaoResponse.class))).thenReturn(builderCartao());
-			
-			when(mapper.mapToModelResponse(any(Cartao.class))).thenReturn(builderCartaoResponse());
-			
-			CartaoResponse cartao = cartaoService.criarCartao(cartaoRequest);
-			
-			assertNotNull(cartao);
-	}
+//	@Test
+//	public void salvarCartaoTest() {
+//		
+//			CartaoRequest cartaoRequest = this.builderCartaoRequest();
+//			
+//			when(cartaoRepository.save(any(Cartao.class))).thenReturn(builderCartao());
+//			
+//			when(mapper.mapToCartao(any(CartaoResponse.class))).thenReturn(builderCartao());
+//			
+//			when(mapper.mapToModelResponse(any(Cartao.class))).thenReturn(builderCartaoResponse());
+//			
+//			CartaoResponse cartao = cartaoService.criarCartao(cartaoRequest);
+//			
+//			assertNotNull(cartao);
+//	}
 	
 	@Test
 	public void consultarCartao() {

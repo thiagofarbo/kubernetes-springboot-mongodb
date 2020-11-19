@@ -13,7 +13,7 @@ public class RecursoCriadoEvent <K,T>{
 		this.recurso = recurso;
 	}
 	
-	public RecursoCriadoEvent(K id, T recurso, HttpServletResponse response) {
+	public RecursoCriadoEvent(K id, T recurso, HttpServletResponse response, String queue) {
 		this.id = id;
 		this.recurso = recurso;
 		this.response = response;

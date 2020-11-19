@@ -10,6 +10,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.event.EventListener;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,6 +26,7 @@ import br.com.thec.cartao.domain.generator.Generator;
 import br.com.thec.cartao.enums.StatusCartaoEnum;
 import br.com.thec.cartao.event.CartaoCriadoEvent;
 import br.com.thec.cartao.mapper.Mapper;
+import br.com.thec.cartao.redis.repository.RedisRepository;
 import br.com.thec.cartao.repository.CartaoRepository;
 import br.com.thec.cartao.request.CartaoRequest;
 import br.com.thec.cartao.request.CartaoRequestUpdate;
@@ -40,7 +43,13 @@ public class CartaoService {
 	private Generator generator;
 	
 	@Autowired
+	private RedisRepository redisRepository;
+	
+	@Autowired
 	private CartaoRepository cartaoRepository;
+	
+	@Value("${hash.key}")
+	private String hashKey;
 	
 
 	@Transactional
@@ -55,25 +64,31 @@ public class CartaoService {
 		
 		final Cartao cartao = this.cartaoRepository.save(mapper.mapToCartao(cartaoResponse));
 		
+		this.redisRepository.save(cartao, hashKey);
+		
 		return mapper.mapToModelResponse(cartao);
 		
 	}
 	
-	@Async
-	@EventListener
-	public void sendToQueue(final CartaoCriadoEvent cartaoCriadoEvent) {
-		QueueService.send(cartaoCriadoEvent);
-	}
-
 	public CartaoResponse consultarCartao(final String id) {
 		
-		final Optional<Cartao> cartao = this.cartaoRepository.findById(id);
+	    Optional<Cartao> cartao  = Optional.empty();
 		
-		checkThrow(!cartao.isPresent(), GLOBAL_RESOURCE_NOT_FOUND);
+		Cartao cartaoCache = redisRepository.findCartao(hashKey, id);
 		
-		return mapper.mapToModelResponse(cartao.get());
+		if(Objects.isNull(cartaoCache)) {
+			
+			cartao = this.cartaoRepository.findById(id);
+			
+			checkThrow(!cartao.isPresent(), GLOBAL_RESOURCE_NOT_FOUND);
+			
+			return mapper.mapToModelResponse(cartao.get()); 
+		}
+		
+		return mapper.mapToModelResponse(cartaoCache);
 	}
-
+	
+	@Cacheable(cacheNames = "Cartao", key="#root.method.name")
 	public Page<Cartao> listarCartoes(final int page, final int size) {
 		
 		final Page<Cartao> cartoes = this.cartaoRepository.findAll(PageRequest.of(page, size));
@@ -140,5 +155,10 @@ public class CartaoService {
 	        }
 	    }
 	    return null;
+	}
+	@Async
+	@EventListener
+	public void sendToQueue(final CartaoCriadoEvent cartaoCriadoEvent) {
+		QueueService.send(cartaoCriadoEvent);
 	}
 }

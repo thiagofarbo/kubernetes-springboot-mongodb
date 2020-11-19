@@ -36,6 +36,7 @@ public class CartaoRequest implements Serializable {
 	
 	private TipoCartao tipoCartao;
 	
+	@JsonIgnore
 	@ApiModelProperty(value = "Numero do cartão", notes = "Numero do cartão", required = true, example = "1234567890123456", position = 3)
 	private String numeroCartao;
 	
