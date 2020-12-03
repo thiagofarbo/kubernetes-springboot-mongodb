@@ -1,8 +1,6 @@
 package br.com.thec.sqs.service;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.DefaultAWSCredentialsProviderChain;
 import com.amazonaws.regions.Regions;
@@ -12,7 +10,6 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
 import com.amazonaws.services.sqs.model.SendMessageResult;
 import com.google.gson.Gson;
 
-import br.com.thec.cartao.cache.CacheConfig;
 import br.com.thec.cartao.event.CartaoCriadoEvent;
 import br.com.thec.sqs.response.MessageResponse;
 
@@ -40,8 +37,6 @@ public class QueueService {
 		AWSCredentialsProvider provider = new DefaultAWSCredentialsProviderChain();
 		provider.getCredentials().getAWSAccessKeyId();
 		provider.getCredentials().getAWSSecretKey();
-		System.out.println(provider.getCredentials().getAWSAccessKeyId());
-		System.out.println(provider.getCredentials().getAWSSecretKey());
 		return AmazonSQSClientBuilder.standard()
 				 .withRegion(Regions.EU_WEST_1)
 				 .withCredentials(provider)

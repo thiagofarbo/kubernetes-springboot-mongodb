@@ -9,7 +9,6 @@ import org.springframework.scheduling.annotation.EnableAsync;
 
 @EnableAsync
 @SpringBootApplication
-//@EnableHystrixDashboard
 @EnableCircuitBreaker
 @EnableCaching
 public class ApiCartoesApplication {

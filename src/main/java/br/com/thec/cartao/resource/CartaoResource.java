@@ -58,18 +58,20 @@ public class CartaoResource {
 	@Value("${dead.letter.queue}")
 	private String deadLetter;
 	
+//	@Autowired
+//	private CartaoCacheService cacheService;
+	
 	static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
 	
 	@ResponseBody
 	@PostMapping("/cartoes")
 	private ResponseEntity<CartaoResponse> criar(@RequestBody final CartaoRequest cartao, HttpServletResponse response){
-		
 		publisher.publishEvent(new CartaoCriadoEvent(cartao, response, "cartao-queue"));
-		
 		return ResponseEntity.ok(this.cartaoService.criarCartao(cartao));
 	}
 	
 	@GetMapping("/cartoes/{id}")
+//	@HystrixCommand(fallbackMethod= "getCartaoFromCache")
 	public ResponseEntity<CartaoResponse> consultarCartao(@PathVariable final String id){
 		return ResponseEntity.ok(this.cartaoService.consultarCartao(id));
 	}
@@ -93,4 +95,10 @@ public class CartaoResource {
 	public ResponseEntity<CartaoResponse> deletar(@PathVariable final String id){
 		return ResponseEntity.ok(this.cartaoService.excluirCartao(id));
 	}
+	
+//	public ResponseEntity<CartaoResponse> getCartaoFromCache(final String id) {
+//		return  ResponseEntity.ok(this.cacheService.getCartaoFromCache(id));
+//	}
+	
+	
 }
