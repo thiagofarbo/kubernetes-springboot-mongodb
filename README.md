@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/thiagofarbo/kubernetes-springboot-mongodb.svg?branch=main)](https://travis-ci.org/thiagofarbo/kubernetes-springboot-mongodb)
+[![Build Status](https://travis-ci.com/thiagofarbo/kubernetes-springboot-mongodb.svg?branch=main)](https://travis-ci.com/thiagofarbo/kubernetes-springboot-mongodb)
 
 #Sobre esse projeto.
 
