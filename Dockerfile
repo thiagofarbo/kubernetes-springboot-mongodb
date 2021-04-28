@@ -2,11 +2,20 @@ FROM openjdk:8
 
 MAINTAINER Thiago Emidio
 
-RUN mvn clean package
+# Install maven
+RUN apt-get update
+RUN apt-get install -y maven
 
-ARG JAR_FILE=target/
+WORKDIR /code
 
-COPY ${JAR_FILE} api-cartoes.jar
+# Prepare by downloading dependencies
+ADD pom.xml /code/pom.xml
+RUN ["mvn", "dependency:resolve"]
+RUN ["mvn", "verify"]
+
+# Adding source, compile and package into a fat jar
+ADD src /code/src
+RUN ["mvn", "package"]
 
 EXPOSE 8090
 
