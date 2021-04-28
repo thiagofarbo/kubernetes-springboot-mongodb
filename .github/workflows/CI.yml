@@ -11,7 +11,7 @@ jobs:
   ci:
     runs-on: ubuntu-latest
     container:
-      image: api-cartoes:main
+      image: thiago1432/api-cartoes:main
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
