@@ -1,4 +1,6 @@
 
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/thiagofarbo/kubernetes-springboot-mongodb/maven)
+
 #Sobre esse projeto.
 
 Este aplicação foi desenvolvida utilizando Spring Boot com Java 8. A aplicação não precisa de nenhum servidor para realizar o deploy.
