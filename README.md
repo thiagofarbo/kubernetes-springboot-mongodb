@@ -1,3 +1,4 @@
+![GitHub Workflow Status](https://img.shields.io/github/workflow/status/thiagofarbo/kubernetes-springboot-mongodb/maven)
 
 #Sobre esse projeto.
 
