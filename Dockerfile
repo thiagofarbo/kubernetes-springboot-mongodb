@@ -4,7 +4,7 @@ MAINTAINER Thiago Emidio
 
 WORKDIR /app
 
-COPY target/*.jar ./api-cartoes.jar
+COPY target/*.jar /app/api-cartoes.jar
 
 EXPOSE 8090
 
