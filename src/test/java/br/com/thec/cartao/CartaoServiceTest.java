@@ -14,12 +14,19 @@ import java.util.Arrays;
 import java.util.Optional;
 import java.util.UUID;
 
+import br.com.thec.cartao.cache.CacheConfig;
+import br.com.thec.cartao.domain.generator.Generator;
+import br.com.thec.cartao.redis.repository.RedisRepository;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +45,12 @@ import br.com.thec.cartao.request.CartaoRequest;
 import br.com.thec.cartao.request.CartaoRequestUpdate;
 import br.com.thec.cartao.response.CartaoResponse;
 import br.com.thec.cartao.service.CartaoService;
+import org.springframework.data.redis.core.HashOperations;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.util.ReflectionTestUtils;
+
 
 @RunWith(MockitoJUnitRunner.class)
 public class CartaoServiceTest {
@@ -50,26 +63,40 @@ public class CartaoServiceTest {
 	private Mapper mapper;
 
 	@Mock
+	private Generator generator;
+
+	@Mock
+	private RedisRepository redisRepository;
+
+	@Mock
+	private CacheConfig config;
+
+	@Mock
 	private CartaoRepository cartaoRepository;
 
 	@InjectMocks
 	private CartaoService cartaoService;
 
-//	@Test
-//	public void salvarCartaoTest() {
-//		
-//			CartaoRequest cartaoRequest = this.builderCartaoRequest();
-//			
-//			when(cartaoRepository.save(any(Cartao.class))).thenReturn(builderCartao());
-//			
-//			when(mapper.mapToCartao(any(CartaoResponse.class))).thenReturn(builderCartao());
-//			
-//			when(mapper.mapToModelResponse(any(Cartao.class))).thenReturn(builderCartaoResponse());
-//			
-//			CartaoResponse cartao = cartaoService.criarCartao(cartaoRequest);
-//			
-//			assertNotNull(cartao);
-//	}
+	@Value("${hash.key}")
+	private String hashKey;
+
+	@Test
+	public void salvarCartaoTest() {
+
+			CartaoRequest cartaoRequest = this.builderCartaoRequest();
+
+			when(cartaoRepository.save(any(Cartao.class))).thenReturn(builderCartao());
+
+			when(generator.cardGenerator()).thenReturn(UUID.randomUUID().toString());
+
+			when(mapper.mapToCartao(any(CartaoResponse.class))).thenReturn(builderCartao());
+
+			when(mapper.mapToModelResponse(any(Cartao.class))).thenReturn(builderCartaoResponse());
+
+			CartaoResponse cartao = cartaoService.criarCartao(cartaoRequest);
+
+			assertNotNull(cartao);
+	}
 	
 	@Test
 	public void consultarCartao() {
@@ -240,6 +267,20 @@ public class CartaoServiceTest {
 			.limiteCartao(BigDecimal.valueOf(1500.00))
 			.tipoCartao(TipoCartao.CREDITO)
 			.build();
-		
+	}
+
+	private HashOperations<String, Object, Object> hashOperations(){
+
+		final Cartao cartao = builderCartao();
+
+		HashOperations<String, Object, Object> hashOperations = config.redisTemplate().opsForHash();
+		hashOperations.put(hashKey, cartao.getId(), cartao);
+
+		return hashOperations;
+	}
+
+	@Before
+	public void setUp(){
+		ReflectionTestUtils.setField(cartaoService, "hashKey", "Cartao");
 	}
 }
