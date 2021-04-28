@@ -2,12 +2,10 @@ FROM openjdk:8
 
 MAINTAINER Thiago Emidio
 
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
+WORKDIR /target/
+COPY ${WORKDIR} api-cartoes.jar
 
-ARG artifactory=/target/*.jar
-
-COPY ${artifactory} api-cartoes.jar
+RUN mvn clean package
 
 EXPOSE 8090
 
