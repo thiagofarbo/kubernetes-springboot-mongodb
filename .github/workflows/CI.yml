@@ -1,7 +1,7 @@
 # This workflow will build a Java project with Maven
 # For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-maven
 
-name: maven
+name: CI/CD
 
 on:
   push:
@@ -10,10 +10,10 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  ci:
     runs-on: ubuntu-latest
-
+    container:
+      image: api-cartoes
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 1.8
@@ -23,3 +23,21 @@ jobs:
         distribution: 'adopt'
     - name: Build with Maven
       run: mvn package
+  cd:
+    runs-on: ubuntu-latest
+    needs: ci
+    
+    steps:
+      - uses: actions/checkout@v1
+      - name: Docker login
+        run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
+      - name: Build
+        run: docker build -t back .
+      - name: Tags
+        run: |
+          docker tag back ${{ secrets.DOCKER_HUB_LOGIN }}/back:${{ github.sha }}
+          docker tag back ${{ secrets.DOCKER_HUB_LOGIN }}/back:latest
+      - name: Push
+        run: |
+          docker push ${{ secrets.DOCKER_HUB_LOGIN }}/back:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_HUB_LOGIN }}/back:latest
