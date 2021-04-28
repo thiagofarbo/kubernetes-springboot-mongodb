@@ -4,10 +4,9 @@ MAINTAINER Thiago Emidio
 
 RUN mvn clean package
 
-ADD /target  /target/lib/api-cartoes.jar
+ARG artifactory=/target/*.jar
 
-ARG JAR_FILE
-ADD target/${JAR_FILE} /target/lib/api-cartoes.jar
+COPY ${artifactory} api-cartoes.jar
 
 EXPOSE 8090
 
