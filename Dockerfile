@@ -2,7 +2,7 @@ FROM openjdk:8
 
 MAINTAINER Thiago Emidio
 
-COPY /target/*.jar api-cartoes.jar
+COPY /target/*.jar /tmp/target/*.jar
 
 EXPOSE 8090
 
