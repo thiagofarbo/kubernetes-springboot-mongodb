@@ -2,7 +2,9 @@ FROM openjdk:8
 
 MAINTAINER Thiago Emidio
 
-COPY /target/*.jar /tmp/target/*.jar
+ARG artifactory=/target/*.jar
+
+COPY ${artifactory} api-cartoes.jar
 
 EXPOSE 8090
 
