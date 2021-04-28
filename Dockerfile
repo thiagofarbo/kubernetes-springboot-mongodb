@@ -4,9 +4,9 @@ MAINTAINER Thiago Emidio
 
 RUN mvn clean package
 
-ARG JAR_FILE
+ARG JAR_FILE=target/
 
-COPY target/${JAR_FILE} api-cartoes.jar
+COPY ${JAR_FILE} api-cartoes.jar
 
 EXPOSE 8090
 
