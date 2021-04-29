@@ -4,9 +4,9 @@ MAINTAINER Thiago Emidio
 
 WORKDIR /app
 
-COPY /target/*.jar api-cartoes.jar
-
 RUN mvn package
+
+COPY /target/*.jar api-cartoes.jar
 
 EXPOSE 8090
 
