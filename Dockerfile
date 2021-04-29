@@ -4,7 +4,7 @@ MAINTAINER Thiago Emidio
 
 WORKDIR /app
 
-COPY target/*.jar /api-cartoes.jar
+COPY /target/*.jar api-cartoes.jar
 
 RUN mvn package
 
