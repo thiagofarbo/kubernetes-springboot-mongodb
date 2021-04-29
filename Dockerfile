@@ -2,12 +2,10 @@ FROM openjdk:8
 
 MAINTAINER Thiago Emidio
 
-WORKDIR /app
+VOLUME /tmp
 
-COPY /target/*.jar api-cartoes.jar
+ADD target/*.jar api-cartoes.jar
 
-RUN mvn package
+ENTRYPOINT ["/bin/bash", "-c", "java", "-jar","/api-cartoes.jar"]
 
 EXPOSE 8090
-
-ENTRYPOINT ["java", "-jar", "api-cartoes.jar"]
