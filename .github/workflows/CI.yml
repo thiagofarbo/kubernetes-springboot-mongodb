@@ -37,8 +37,8 @@ jobs:
         run: docker build -t ${{ secrets.DOCKER_REGISTRY_IMAGE }} .
       - name: Tags
         run: |
-          docker tag back ${{ secrets.DOCKER_HUB_LOGIN }}/back:${{ github.sha }}
-          docker tag back ${{ secrets.DOCKER_HUB_LOGIN }}/back:latest
+          docker tag ${{ secrets.DOCKER_REGISTRY_IMAGE }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }}
+          docker tag ${{ secrets.DOCKER_REGISTRY_IMAGE }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
       - name: Push
         run: |
           docker push ${{ secrets.DOCKER_HUB_LOGIN }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }}
