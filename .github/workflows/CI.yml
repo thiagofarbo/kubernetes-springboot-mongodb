@@ -36,8 +36,9 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_HUB_LOGIN }}
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          repository: ${{ secrets.DOCKER_HUB_PASSWORD }}
-          tag_with_ref: true
+          repository: ${{ secrets.DOCKER_REGISTRY_IMAGE }}
+          push: true
+          tags: ${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
 
 #       - uses: actions/checkout@v1
 #       - name: Docker login
