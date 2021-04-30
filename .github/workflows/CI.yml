@@ -51,17 +51,3 @@ jobs:
       -
         name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
-
-#       - uses: actions/checkout@v1
-#       - name: Docker login
-#         run: docker login -u ${{ secrets.DOCKER_HUB_LOGIN }} -p ${{ secrets.DOCKER_HUB_PASSWORD }}
-#       - name: Build
-#         run: docker build -t ${{ secrets.DOCKER_REGISTRY_IMAGE }} .
-#       - name: Tags
-#         run: |
-#           docker tag ${{ secrets.DOCKER_REGISTRY_IMAGE }}:main ${{ secrets.DOCKER_REGISTRY_IMAGE }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }}
-#           docker tag ${{ secrets.DOCKER_REGISTRY_IMAGE }}:main ${{ secrets.DOCKER_REGISTRY_IMAGE }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:main
-#       - name: Push
-#         run: |
-#           docker push ${{ secrets.DOCKER_REGISTRY_IMAGE }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:${{ github.sha }}
-#           docker push ${{ secrets.DOCKER_REGISTRY_IMAGE }}/${{ secrets.DOCKER_REGISTRY_IMAGE }}:main
