@@ -38,7 +38,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_PASSWORD }}
           repository: ${{ secrets.DOCKER_REGISTRY_IMAGE }}
           push: true
-          tags: ${{ secrets.DOCKER_REGISTRY_IMAGE }}:latest
+          tags: ${{ secrets.DOCKER_REGISTRY_IMAGE }}:main
 
 #       - uses: actions/checkout@v1
 #       - name: Docker login
