@@ -1,4 +1,5 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/thiagofarbo/kubernetes-springboot-mongodb/maven)
+![Codecov](https://img.shields.io/codecov/c/github/thiago1432/kubernetes-springboot-mongodb)
 
 #Sobre esse projeto.
 
