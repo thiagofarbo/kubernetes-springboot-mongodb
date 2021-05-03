@@ -39,7 +39,12 @@ jobs:
       - uses: actions/checkout@master
       - uses: codecov/codecov-action@v1
         with:
-          verbose: true
+          auth: ${{ secrets.GIST_SECRET }}
+          gistID: ed626639b2c3f20908b915d91957c806
+          label: Test Coverage
+          message: ${{ env.COVERAGE }}
+          color: green
+          namedLogo: jest   
       -
         name: Login to DockerHub
         uses: docker/login-action@v1 
