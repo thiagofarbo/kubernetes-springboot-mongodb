@@ -1,5 +1,5 @@
 ![GitHub Workflow Status](https://img.shields.io/github/workflow/status/thiagofarbo/kubernetes-springboot-mongodb/maven)
-[![card](https://github-readme-stats.vercel.app/api?thiagofarbo=iuricode&theme=default)](https://github.com/iuricode/)
+[![card](https://github-readme-stats.vercel.app/api?thiagofarbo=iuricode&theme=default)](https://github.com/thiagofarbo)
 
 #Sobre esse projeto.
 
