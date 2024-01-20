@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.com.thec.cartoes</groupId>
-	<artifactId>api-cartoes</artifactId>
+	<artifactId>card-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api-cartoes</name>
+	<name>card-api</name>
 	<description>Kafka example Store</description>
 
 	<properties>

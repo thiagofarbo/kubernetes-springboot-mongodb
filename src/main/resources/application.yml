@@ -1,12 +1,12 @@
 spring:
   application:
-    name: api-cartoes
+    name: card-api
   data:
     mongodb:
 #      uri: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongodb/${MONGO_DATABASE}
      host: localhost
      port: 27017
-     database: cartao
+     database: card
 
 # Redis properties
   redis:
@@ -44,10 +44,10 @@ hystrix:
         rollingStats:
           timeInMilliseconds: 5000
   
-queue: cartao-queue
+queue: card-queue
 dead: 
   letter: 
-    queue: cartao-dead-letter
+    queue: card-dead-letter
     
 hash:
-  key: Cartao
+  key: Card
