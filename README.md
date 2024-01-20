@@ -17,24 +17,25 @@ We are using a NSQL database MongoDB running on port 27017
 To create the Docker image, simply navigate to the project root and execute the command below
 
 ```
-    docker build -f Dockerfile -t api-cartoes .
+    docker build -f Dockerfile -t api-cards .
 ```
 # To run the Docker image, simply execute the command below.
  ```   
-    docker run -p 8085:8085 api-cartoes
+    docker run -p 8085:8085 api-cards
  ```
 
 # URL's REST API
 
-#### @POST To save a card, simply make a request to the following URL: http://localhost:9595/api/cartoes
+#### @POST To save a card, simply make a request to the following URL:
 
 ```
+http://localhost:9595/api/cards
 {
-	"nome": "Joh Conner",
-    "valor": 300.00,
-    "tipoCartao": "DEBITO",
-    "dataRecarga": "16-10-2019",
-    "dataExpiracao": "21-09-2020"
+	"name": "Thiago",
+	"amount": 200.00,
+    "status": "INACTIVE",  
+    "cardType": "CREDIT",
+	"productType":"MEAL"
 }
 ```
 
@@ -48,19 +49,19 @@ To create the Docker image, simply navigate to the project root and execute the 
 #### @GET To list the cards, just make a request to the following 
 
 ```
-http://localhost:9595/api/cartoes
+http://localhost:9595/api/cards
 ```
 
 #### @PUT To update a card, simply make a request to the following URL, passing the body below.
 ``` 
-http://localhost:9595/api/cartoes
+http://localhost:9595/api/cards
 
 {
-	"nome": "Joh Conner",
-    "valor": 300.00,
-    "tipoCartao": "DEBITO",
-    "dataRecarga": "16-10-2019",
-    "dataExpiracao": "21-09-2020"
+	"name": "Thiago",
+	"amount": 200.00,
+    "status": "INACTIVE",  
+    "cardType": "CREDIT",
+	"productType":"MEAL"
 }
 
 ``` 
@@ -68,7 +69,7 @@ http://localhost:9595/api/cartoes
 #### @PATCH To update the status of a card, simply make a request to the following URL.
 
 ``` 
-http://localhost:9595/api/cartoes
+http://localhost:9595/api/cards
 
 {
         "status": "LOSS"
@@ -79,5 +80,5 @@ http://localhost:9595/api/cartoes
 #### @DELETE To delete a card, just make a request to the following URL, passing the card ID.
 
 ``` 
- http://localhost:9595/api/cartoes/1
+ http://localhost:9595/api/cards/1
 ``` 
