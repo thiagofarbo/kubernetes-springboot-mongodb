@@ -1,14 +1,13 @@
 ![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Flocalhost%3A9595%2Fapi%2Fcards)
 
 # About this project
-This application was developed using Spring Boot with Java 8. The application does not require any server for deployment.
-Why? Because this application is deployed on an Embedded Tomcat.
+This application aims to show how to build an application using some technologies such as Java, Springboot Docker, Kubernetes, SQS , Graphana and MongoDB.
 
 
 ## Prerequisites
 * Docker installed and configured on your machine
 * Maven
-* Java 11
+* Java 1.8
 
 # Database.
 We are using a NSQL database MongoDB running on port 27017
