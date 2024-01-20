@@ -1,4 +1,4 @@
-![GitHub Workflow Status](https://img.shields.io/github/workflow/status/thiagofarbo/kubernetes-springboot-mongodb/maven)
+![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Flocalhost%3A9595%2Fapi%2Fcards)
 
 # About this project
 This application was developed using Spring Boot with Java 8. The application does not require any server for deployment.
@@ -8,7 +8,7 @@ Why? Because this application is deployed on an Embedded Tomcat.
 ## Prerequisites
 * Docker installed and configured on your machine
 * Maven
-  * Java 11
+* Java 11
 
 # Database.
 We are using a NSQL database MongoDB running on port 27017
