@@ -1,7 +1,7 @@
 ![Endpoint Badge](https://img.shields.io/endpoint?url=https%3A%2F%2Flocalhost%3A9595%2Fapi%2Fcards)
 
 # About this project
-This application aims to show how to build an application using some technologies such as Java, Springboot Docker, Kubernetes, SQS , Graphana and MongoDB.
+This application aims to show how to build an application using some technologies such as Java, Springboot Docker, Kubernetes, SQS , Grafana and MongoDB.
 
 
 ## Prerequisites
